@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExecuteSQLAgainstAzureDBs": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Server=DESKTOP-EPNGTIU;Trusted_Connection=True;\" \"C:\\Temp\\test.sql\" \"C:\\Temp\\dbnames.csv\""
+    }
+  }
+}

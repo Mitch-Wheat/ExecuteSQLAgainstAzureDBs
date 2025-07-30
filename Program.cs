@@ -114,20 +114,33 @@ namespace ExecuteSQLAgainstAzureDBs
                     {
                         if (col.DataType == typeof(int))
                         {
-                            values[i] = (((int)row[col]).ToString()) ?? "";
+                            values[i] = row[col] != DBNull.Value ? ((int)row[col]).ToString() : "";
                         }
                         else if (col.DataType == typeof(decimal))
                         {
-                            values[i] = (((decimal)row[col]).ToString()) ?? "";
+                            values[i] = row[col] != DBNull.Value ? ((decimal)row[col]).ToString() : "";
                         }
                         else if (col.DataType == typeof(DateTime))
                         {
-                            values[i] = (((DateTime)row[col]).ToString()) ?? "";
+                            values[i] = row[col] != DBNull.Value ? ((DateTime)row[col]).ToString() : "";
+                        }
+                        else if (col.DataType == typeof(short))
+                        {
+                            values[i] = row[col] != DBNull.Value ? ((short)row[col]).ToString() : "";
+                        }
+                        else if (col.DataType == typeof(Guid))
+                        {
+                            values[i] = row[col] != DBNull.Value ? ((Guid)row[col]).ToString() : "";
+                        }
+                        else if (col.DataType == typeof(byte[]))
+                        {
+                            values[i] = row[col] != DBNull.Value ? "0x" + Convert.ToHexString((byte[])row[col]) : "";
                         }
                         else
                         {
-                            values[i] = ((string)row[col]) ?? "";
+                            values[i] = row[col] != DBNull.Value ? ((string)row[col]) : "";
                         }
+
                         i++;
                     }
 
