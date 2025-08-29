@@ -112,34 +112,7 @@ namespace ExecuteSQLAgainstAzureDBs
                     int i = 0;
                     foreach (DataColumn col in dt.Columns)
                     {
-                        if (col.DataType == typeof(int))
-                        {
-                            values[i] = row[col] != DBNull.Value ? ((int)row[col]).ToString() : "";
-                        }
-                        else if (col.DataType == typeof(decimal))
-                        {
-                            values[i] = row[col] != DBNull.Value ? ((decimal)row[col]).ToString() : "";
-                        }
-                        else if (col.DataType == typeof(DateTime))
-                        {
-                            values[i] = row[col] != DBNull.Value ? ((DateTime)row[col]).ToString() : "";
-                        }
-                        else if (col.DataType == typeof(short))
-                        {
-                            values[i] = row[col] != DBNull.Value ? ((short)row[col]).ToString() : "";
-                        }
-                        else if (col.DataType == typeof(Guid))
-                        {
-                            values[i] = row[col] != DBNull.Value ? ((Guid)row[col]).ToString() : "";
-                        }
-                        else if (col.DataType == typeof(byte[]))
-                        {
-                            values[i] = row[col] != DBNull.Value ? "0x" + Convert.ToHexString((byte[])row[col]) : "";
-                        }
-                        else
-                        {
-                            values[i] = row[col] != DBNull.Value ? ((string)row[col]) : "";
-                        }
+                        ConverttoType(row, values, i, col);
 
                         i++;
                     }
@@ -151,6 +124,38 @@ namespace ExecuteSQLAgainstAzureDBs
             }
             
             Console.WriteLine();
+        }
+
+        private static void ConverttoType(DataRow row, string[] values, int i, DataColumn col)
+        {
+            if (col.DataType == typeof(int))
+            {
+                values[i] = row[col] != DBNull.Value ? ((int)row[col]).ToString() : "";
+            }
+            else if (col.DataType == typeof(decimal))
+            {
+                values[i] = row[col] != DBNull.Value ? ((decimal)row[col]).ToString() : "";
+            }
+            else if (col.DataType == typeof(DateTime))
+            {
+                values[i] = row[col] != DBNull.Value ? ((DateTime)row[col]).ToString() : "";
+            }
+            else if (col.DataType == typeof(short))
+            {
+                values[i] = row[col] != DBNull.Value ? ((short)row[col]).ToString() : "";
+            }
+            else if (col.DataType == typeof(Guid))
+            {
+                values[i] = row[col] != DBNull.Value ? ((Guid)row[col]).ToString() : "";
+            }
+            else if (col.DataType == typeof(byte[]))
+            {
+                values[i] = row[col] != DBNull.Value ? "0x" + Convert.ToHexString((byte[])row[col]) : "";
+            }
+            else
+            {
+                values[i] = row[col] != DBNull.Value ? ((string)row[col]) : "";
+            }
         }
 
         private static void RunNonSelectQuery(string sql, SqlConnection cn)
